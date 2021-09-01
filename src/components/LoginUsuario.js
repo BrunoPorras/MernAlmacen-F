@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import logo from './imagenes/logo.png'
 import axios from 'axios'
 import Navigation from './comp_home/Navigation'
@@ -43,6 +44,7 @@ export default class LoginUsuario extends Component {
             .then(response=>{
                 if(response.length>0){
                     console.log("Inicio correcto")
+                    
                 }else{
                     console.log("Inicio incorrecto")
                 }
@@ -52,27 +54,7 @@ export default class LoginUsuario extends Component {
                 console.log("Inicio inválido");
             })
 
-    }/*
-    iniciarSesion1 = async () => {
-        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/',
-            { params: { username: this.state.username, password: this.state.password } })
-            .then(response => {
-                this.state.usuarios.map(usuarios =>
-                    {if(usuarios.username===this.username){
-                        
-                    };}
-                    );
-
-                console.log("Inicio correcto")
-                console.log(this.state.username)
-                console.log(this.state.password);
-            })
-            .catch(error => {
-                console.log(error);
-                console.log("Inicio inválido");
-            })
-
-    }*/
+    }
 
     onChangeUsername = (e) => {
         this.setState({
@@ -130,7 +112,7 @@ export default class LoginUsuario extends Component {
                             </div>
 
                             <div className="d-grid my-5">
-                                <button type="submit" className="btn btn-primary" onClick={() => this.iniciarSesion()}>Iniciar sesión</button>
+                                <Link className = "btn btn-primary" to="/categorias">Iniciar sesión</Link>
                             </div>
                         </div>
                     </div>
@@ -141,3 +123,4 @@ export default class LoginUsuario extends Component {
         )
     }
 }
+//<button type="submit" className="btn btn-primary" onClick={() => this.iniciarSesion()}>Iniciar sesión</button>

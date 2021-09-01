@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from './../imagenes/logo.png'
-import {useAuth0} from '@auth0/auth0-react'
+//import {useAuth0} from '@auth0/auth0-react'
 
 const Navigation = () => {
     
-    const { loginWithRedirect, isAuthenticated } = useAuth0();
+    //const { loginWithRedirect, isAuthenticated } = useAuth0();
     //console.log(isAuthenticated);
     return (
         <nav className="navbar navbar-expand-sm navbar-dark sticky-top bg-dark">
@@ -27,7 +27,7 @@ const Navigation = () => {
                             <li className="nav-item"><Link className = "nav-link m-1" to="/categorias">Inicio</Link></li>
                             <li className="nav-item"><Link className = "nav-link m-1" to="/funcionalidades">Funcionalidades</Link></li>
                             <li className="nav-item"><Link className = "nav-link m-1" to="/register">Regístrese ahora</Link></li>
-                            <li className="nav-item" onClick={()=> loginWithRedirect()}><Link className = "nav-link m-1">Ingresar</Link></li>
+                            <li className="nav-item"><Link className = "nav-link m-1" to="/login">Ingresar</Link></li>
                            
                         </ul>
                     </div>
