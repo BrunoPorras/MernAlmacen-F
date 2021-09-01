@@ -8,8 +8,8 @@ export default class LoginUsuario extends Component {
 
     state = {
         usuarios: [],
-        usename: '',
-        password: ''
+        usename: "",
+        password: ""
     }
 
 
