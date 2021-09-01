@@ -35,8 +35,9 @@ export default class LoginUsuario extends Component {
     iniciarSesion = async () => {
         await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/', { params: { username: this.state.username, password: this.state.password } })
             .then(response => {
+                console.log(response.data)
                 console.log(this.state.username)
-                console.log(this.state.password);
+                console.log(this.state.password)
                 return response.data;
             })
             .then(response=>{
