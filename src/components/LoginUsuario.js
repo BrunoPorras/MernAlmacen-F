@@ -92,8 +92,6 @@ export default class LoginUsuario extends Component {
                                 <div className="d-grid my-5">
                                     <button type="submit" className="btn btn-primary" onClick={()=>this.iniciarSesion()}>Iniciar sesión</button>
                                 </div>
-                                <button>HAGO ALGO?</button>
-
                         </div>
                     </div>
                 </div>
