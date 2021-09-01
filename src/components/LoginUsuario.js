@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import logo from './imagenes/logo.png'
+import axios from 'axios'
 import Navigation from './comp_home/Navigation'
 import Footer from './comp_home/Footer'
 
 export default class LoginUsuario extends Component {
+
+    state = {
+        usuarios: [],
+        usename: '',
+        password: ''
+    }
 
 
     constante = {
@@ -19,7 +26,37 @@ export default class LoginUsuario extends Component {
             a4: "password"
         }]
     }
+    async componentDidMount() {
+        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/');
+        this.setState({ usuarios: res.data });
+        console.log(this.state.usuarios)
+    }
 
+    iniciarSesion = async () => {
+        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/', 
+        {params: {username: this.state.username, password: this.state.password}})
+        .then(response =>{
+            console.log(response.data);
+            console.log("Inicio correcto");
+        })
+        .catch(error =>{
+            console.log(error);
+            console.log("Inicio inválido");
+        })
+
+    }
+
+    onChangeUsername = (e) => {
+        this.setState({
+            username: e.target.value
+        })
+    }
+    
+    onChangePass = (e) => {
+        this.setState({
+            password: e.target.value
+        })
+    }
     render() {
         return (
             <div>
@@ -54,7 +91,7 @@ export default class LoginUsuario extends Component {
                                 </div>
 
                                 <div className="d-grid my-5">
-                                    <button id="btn_reg" type="submit" className="btn btn-primary">Iniciar sesión</button>
+                                    <button id="btn_reg" type="submit" className="btn btn-primary" onClick={()=>this.iniciarSesion()}>Iniciar sesión</button>
                                 </div>
                             </form>
 
