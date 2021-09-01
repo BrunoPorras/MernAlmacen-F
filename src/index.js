@@ -14,7 +14,7 @@ ReactDOM.render(
     <Auth0Provider 
       domain={domain}
       clientId={client_id} 
-      redirec={window.location.origin}>
+      redirec={window.location.href="./../categorias"} >
       <App />
     </Auth0Provider>
   </React.StrictMode>,
