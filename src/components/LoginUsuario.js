@@ -8,7 +8,7 @@ export default class LoginUsuario extends Component {
 
     state = {
         usuarios: [],
-        usename: "",
+        username: "",
         password: ""
     }
 
@@ -33,8 +33,7 @@ export default class LoginUsuario extends Component {
     }
 
     iniciarSesion = async () => {
-        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/',
-            { params: { username: this.state.username, password: this.state.password } })
+        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/', { params: { username: this.state.username, password: this.state.password } })
             .then(response => {
                 console.log("Inicio correcto")
                 console.log(this.state.username)
@@ -45,7 +44,27 @@ export default class LoginUsuario extends Component {
                 console.log("Inicio inválido");
             })
 
-    }
+    }/*
+    iniciarSesion1 = async () => {
+        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/',
+            { params: { username: this.state.username, password: this.state.password } })
+            .then(response => {
+                this.state.usuarios.map(usuarios =>
+                    {if(usuarios.username===this.username){
+                        
+                    };}
+                    );
+
+                console.log("Inicio correcto")
+                console.log(this.state.username)
+                console.log(this.state.password);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log("Inicio inválido");
+            })
+
+    }*/
 
     onChangeUsername = (e) => {
         this.setState({
