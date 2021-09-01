@@ -39,6 +39,13 @@ export default class LoginUsuario extends Component {
                 console.log(this.state.username)
                 console.log(this.state.password);
             })
+            .then(response=>{
+                if(response.length>0){
+                    console.log("Inicio correcto")
+                }else{
+                    console.log("Inicio incorrecto")
+                }
+            })
             .catch(error => {
                 console.log(error);
                 console.log("Inicio inválido");
