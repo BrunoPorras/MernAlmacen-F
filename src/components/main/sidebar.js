@@ -6,7 +6,7 @@ export default class Sidebar extends Component {
 
     sidebar_items = {
         campos: [{
-            href: "/home",
+            href: "/",
             name_item: "Inicio",
             icon: "bi bi-house lead p-3 mr-2"
         }, {
