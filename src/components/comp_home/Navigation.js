@@ -24,7 +24,7 @@ const Navigation = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto">
-                            <li className="nav-item"><Link className = "nav-link m-1" to="/">Inicio</Link></li>
+                            <li className="nav-item"><Link className = "nav-link m-1" to="/categorias">Inicio</Link></li>
                             <li className="nav-item"><Link className = "nav-link m-1" to="/funcionalidades">Funcionalidades</Link></li>
                             <li className="nav-item"><Link className = "nav-link m-1" to="/register">Regístrese ahora</Link></li>
                             <li className="nav-item"><Link className = "nav-link m-1" to="/login">Ingresar</Link></li>
