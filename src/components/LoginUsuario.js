@@ -71,6 +71,8 @@ export default class LoginUsuario extends Component {
         return (
             <div>
                 <Navigation></Navigation>
+                <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
                 <div className="container w-75">
 
                 </div>
@@ -117,6 +119,8 @@ export default class LoginUsuario extends Component {
                         </div>
                     </div>
                 </div>
+                <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
                 <Footer></Footer>
             </div>
 
