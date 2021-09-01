@@ -8,25 +8,16 @@
 .menu .a_class:hover {
 	background: #9AA1A5;
 }
-.side_bar{
+#sidebar-container{
 	min-height: 100vh;
-	width: 19rem;
 }
-.logo{
+#sidebar-container .logo{
 	padding: .875rem 1.25rem;
 }
 
+#sidebar-container .menu{
+	width: 16rem;
+}
 .bg-dark {
 	background-color: var(--gris) !important;
-}
-
-.nav_color{
-	background-color: var(--gris);
-}
-
-.sep-peq{
-	height: 30px;
-}
-.sep-peq1{
-	height: 90px;
 }
