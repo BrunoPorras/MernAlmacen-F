@@ -69,9 +69,8 @@ export default class LoginUsuario extends Component {
                         <img src={logo} alt="Logo de almacen" width="100" height="60" />
                     </div>
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-6 ">
+                        <div className="col-12 col-md-6 form-group">
                             <h2 className="fw-bold text-center py-5">Inicio de sesión</h2>
-                            <form action="#">
                                 {
                                     this.constante.campos.map(campos =>
                                         <div className="mb-4" key = {campos.a2}>
@@ -93,7 +92,6 @@ export default class LoginUsuario extends Component {
                                 <div className="d-grid my-5">
                                     <button id="btn_reg" type="submit" className="btn btn-primary" onClick={()=>this.iniciarSesion()}>Iniciar sesión</button>
                                 </div>
-                            </form>
 
                         </div>
                     </div>
