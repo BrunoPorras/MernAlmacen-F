@@ -12,7 +12,7 @@ const Navbar = () => {
                     <nav className="navbar navbar-expand-sm navbar-dark sticky-top nav_color">
                         <div className="container">
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <p className="ms-auto text-light fs-4">Ha iniciado sesión como: </p>
+                                <p className="ms-auto text-light fs-4">Ha iniciado sesión</p>
                             </div>
                         </div>
                     </nav>
