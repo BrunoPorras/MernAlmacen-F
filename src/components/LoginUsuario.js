@@ -83,7 +83,7 @@ export default class LoginUsuario extends Component {
                                 <div className="mb-4">
                                     <label className="form-label">Rol</label>
                                     <select className="form-select" aria-label="Ejemplo" required>
-                                        <option defaultValue disabled value>Escoja una opción</option>
+                                        <option defaultValue disabled value>Escoja una opción válida</option>
                                         <option value="1">Jefe de almacén</option>
                                         <option value="2">Almacenero</option>
                                     </select>
