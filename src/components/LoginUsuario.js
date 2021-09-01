@@ -19,7 +19,7 @@ export default class LoginUsuario extends Component {
             a2: "Nombre de usuario",
             a3: "Escriba su nombre de usuario",
             a4: "text"
-        },{
+        }, {
             a1: "password",
             a2: "Contraseña",
             a3: "Escriba su contraseña",
@@ -33,17 +33,17 @@ export default class LoginUsuario extends Component {
     }
 
     iniciarSesion = async () => {
-        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/', 
-        {params: {username: this.state.username, password: this.state.password}})
-        .then(response =>{
-            console.log("Inicio correcto")
-            console.log(this.state.username)
-            console.log(this.state.password);
-        })
-        .catch(error =>{
-            console.log(error);
-            console.log("Inicio inválido");
-        })
+        await axios.get('https://sistema-almacen-beta.herokuapp.com/api/usuarios/',
+            { params: { username: this.state.username, password: this.state.password } })
+            .then(response => {
+                console.log("Inicio correcto")
+                console.log(this.state.username)
+                console.log(this.state.password);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log("Inicio inválido");
+            })
 
     }
 
@@ -52,7 +52,7 @@ export default class LoginUsuario extends Component {
             username: e.target.value
         })
     }
-    
+
     onChangePass = (e) => {
         this.setState({
             password: e.target.value
@@ -63,7 +63,7 @@ export default class LoginUsuario extends Component {
             <div>
                 <Navigation></Navigation>
                 <div className="container w-75">
-                    
+
                 </div>
                 <div className="container w-75 mt-5 rounded shadow">
                     <div className="text-end p-3">
@@ -72,27 +72,39 @@ export default class LoginUsuario extends Component {
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-6 form-group">
                             <h2 className="fw-bold text-center py-5">Inicio de sesión</h2>
-                                {
-                                    this.constante.campos.map(campos =>
-                                        <div className="mb-4" key = {campos.a2}>
-                                            <label className="form-label">{campos.a2}</label>
-                                            <input type={campos.a4} className="form-control" name={campos.a1} placeholder={campos.a3} required />
-                                        </div>
-                                    )
-                                }
 
-                                <div className="mb-4">
-                                    <label className="form-label">Rol</label>
-                                    <select className="form-select" aria-label="Ejemplo" required>
-                                        <option defaultValue disabled value>Escoja una opción válida</option>
-                                        <option value="1">Jefe de almacén</option>
-                                        <option value="2">Almacenero</option>
-                                    </select>
-                                </div>
+                            <div className="mb-4" >
+                                <label className="form-label">Nombre de usuario</label>
+                                <input 
+                                type="text" 
+                                className="form-control" 
+                                onChange= {this.onChangeUsername}
+                                name="username" 
+                                placeholder="Escriba su nombre de usuario" required />
+                            </div>
 
-                                <div className="d-grid my-5">
-                                    <button type="submit" className="btn btn-primary" onClick={()=>this.iniciarSesion()}>Iniciar sesión</button>
-                                </div>
+                            <div className="mb-4" >
+                                <label className="form-label">Contraseña</label>
+                                <input 
+                                type="password" 
+                                className="form-control" 
+                                onChange={this.onChangePass}
+                                name="password" 
+                                placeholder="Escriba su contraseña" required />
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="form-label">Rol</label>
+                                <select className="form-select" aria-label="Ejemplo" required>
+                                    <option defaultValue disabled value>Escoja una opción válida</option>
+                                    <option value="1">Jefe de almacén</option>
+                                    <option value="2">Almacenero</option>
+                                </select>
+                            </div>
+
+                            <div className="d-grid my-5">
+                                <button type="submit" className="btn btn-primary" onClick={() => this.iniciarSesion()}>Iniciar sesión</button>
+                            </div>
                         </div>
                     </div>
                 </div>
