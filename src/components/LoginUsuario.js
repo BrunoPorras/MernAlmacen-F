@@ -121,6 +121,10 @@ export default class LoginUsuario extends Component {
                 </div>
                 <div className="sep-peq"></div>
                 <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
+                <div className="sep-peq"></div>
                 <Footer></Footer>
             </div>
 
