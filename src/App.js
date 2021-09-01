@@ -18,6 +18,8 @@ import Trabajadores from './components/main/Trabajadores';
 import Entrada_p from './components/main/Entrada_p';
 import Salida_p from './components/main/Salida_p';
 import Registro from './components/main/Registros';
+import Items from './components/main/Items';
+
 
 function App() {
   
@@ -34,6 +36,7 @@ function App() {
       <Route path = "/entrada-productos" component = {Entrada_p} />
       <Route path = "/salida-productos" component = {Salida_p} />
       <Route path = "/registros" component = {Registro} />
+      <Route path = "/items" component = {Items} />
     </Router>
   );
 }
