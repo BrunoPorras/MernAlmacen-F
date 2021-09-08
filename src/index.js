@@ -5,8 +5,8 @@ import './index.css';
 import App from './App';
 
 //Var entorno para el dominio y client id de autenticación
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const client_id = process.env.REACT_APP_AUTH0_CLIEND_ID;
+const domain = "dev-rt-4763v.us.auth0.com"
+const client_id = "Xuk0ZL8LQkknvonHuZjblp7kclUuOHRa"
 
 
 ReactDOM.render(
