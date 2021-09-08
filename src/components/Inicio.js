@@ -12,9 +12,13 @@ export default class Inicio extends Component {
         return (
             <div>
                 <Navigation></Navigation>
+                <div className= "sep-peq1"></div>
                 <Intmain></Intmain>
+                <div className= "sep-peq1"></div>
                 <Carrousel></Carrousel>
+                <div className= "sep-peq1"></div>
                 <Intmain2></Intmain2>
+                <div className= "sep-peq1"></div>
                 <Footer></Footer>
             </div>
 

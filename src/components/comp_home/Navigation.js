@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from './../imagenes/logo.png'
-//import {useAuth0} from '@auth0/auth0-react'
+import {useAuth0} from '@auth0/auth0-react'
 
 const Navigation = () => {
     
-    //const { loginWithRedirect, isAuthenticated } = useAuth0();
-    //console.log(isAuthenticated);
+    const { loginWithRedirect, isAuthenticated} = useAuth0();
     return (
         <nav className="navbar navbar-expand-sm navbar-dark sticky-top bg-dark">
                 <div className="container-fluid">
@@ -24,10 +23,10 @@ const Navigation = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav ms-auto">
-                            <li className="nav-item"><Link className = "nav-link m-1" to="/categorias">Inicio</Link></li>
-                            <li className="nav-item"><Link className = "nav-link m-1" to="/categorias">Acceso</Link></li>
-                            <li className="nav-item"><Link className = "nav-link m-1" to="/register">Regístrese ahora</Link></li>
-                            <li className="nav-item"><Link className = "nav-link m-1" to="/login">Ingresar</Link></li>
+                            <li className="nav-item"><Link className = "nav-link m-1">Inicio</Link></li>
+                            { isAuthenticated ? <li className="nav-item"><Link className = "nav-link m-1" to="/categorias">Acceso</Link></li> : <li className="nav-item"><Link className = "nav-link m-1" to="/">No tiene acceso</Link></li>}
+                            <li className="nav-item"><Link className = "nav-link m-1" onClick={() => loginWithRedirect()}>Regístrese ahora</Link></li>
+                            <li className="nav-item"><Link className = "nav-link m-1" onClick={() => loginWithRedirect()}>Ingresar</Link></li>
                            
                         </ul>
                     </div>

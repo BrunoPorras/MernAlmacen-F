@@ -3,38 +3,25 @@ import axios from 'axios'
 import Sidebar from './sidebar'
 import Navbar from './navbar'
 
-export default class Salida_p extends Component {
+export default class Entrada_p extends Component {
 
 
     state = {
-        solicitudes: [],
-        id_local: "String",
-        tipoS: "Entrada",
-        codigoS: "",
-        estadoS: "Por aprobar",
-        productos: [{
-            nombre: "",
-            codigo: "",
-            categoria: "",
-            proveedor: "",
-            precio: "",
-            cantidad: 0,
-            descripcion: ""
-        }]
-    }
-    setId = (a) =>{
-        this.setState({
-            id_local: a
-        })
-        //console.log(this.state.id_local);
+        salidas: [],
+        nombre: "",
+        codigo: "",
+        categoria: "",
+        proveedor: "",
+        precio: "",
+        cantidad: 0,
+        cantidad_au: 0,
+        Categorias: [],
+        Proveedores: [],
+        Productos: []
     }
 
-    onChangeCodigoS = (e) => {
-        this.setState({
-            codigoS: e.target.value
-        })
-    }
-    //Para cada producto
+
+
     onChangeNombreP = (e) => {
         this.setState({
             nombre: e.target.value
@@ -65,61 +52,60 @@ export default class Salida_p extends Component {
             cantidad: e.target.value
         })
     }
-    onChangeDescripcion = (e) => {
+    onChangeCantidadAu = (e) => {
         this.setState({
-            descripcion: e.target.value
+            cantidad_au: e.target.value
         })
     }
+
 
     async componentDidMount() {
-        this.getSolicitudes();
-        
-        console.log(this.state.solicitudes)
-    }
-    
-    getSolicitudes = async () => {
-        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/');
-        this.setState({ solicitudes: res.data });
+        this.getCategorias();
+        this.getProveedores();
+        this.getItems();
+        console.log(this.state.salidas);
     }
 
-    getSolicitud = async (id) => {
-        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id);
-        this.setState({ solicitudes: res.data });
+    getItems = async () => {
+        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/items/');
+        this.setState({ Productos: res.data });
     }
 
-
-    crearSolicitudVacia = async () => {
-        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/', {
-            tipoS: "Salida",
-            estadoS: "Por aprobar"
-        })
-        this.setId(res.data);
-        //console.log(res.data);
+    getCategorias = async () => {
+        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/categorias/');
+        this.setState({ Categorias: res.data });
     }
 
-    registrarSolicitud = async (id) => {
-        await axios.put('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id, {
-            estadoS: "Registrado"
-        })
-        //console.log(res.data);
+    getProveedores = async () => {
+        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/proveedores/');
+        this.setState({ Proveedores: res.data });
     }
 
     onSubmit = async (e) => {
-        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/', {
-            nombre: this.state.nombre,
-            codigo: this.state.codigo
+        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/items/', {
+            nombreP: this.state.nombre,
+            codigoP: this.state.codigo,
+            categoriaP: this.state.categoria,
+            proveedorP: this.state.proveedor,
+            precioP: this.state.precio,
+            cantidadP: this.state.cantidad
         })
         console.log(res)
-        this.getCategorias();
-
+        this.getItems();
     }
 
-    deleteCategoria = async (id) => {
-        await axios.delete('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id)
-        console.log(id)
-        this.getCategorias();
+    reducirItemStock = async (id, stock) => {
+        const num1 = parseInt(stock) - parseInt(this.state.cantidad_au)
+        if (num1 >= 0) {
+            await axios.put('https://sistema-almacen-beta.herokuapp.com/api/items/' + id, {
+                cantidadP: num1
+            })
+        }
+        if(num1 === 0){
+            await axios.delete('https://sistema-almacen-beta.herokuapp.com/api/items/' + id)
+        }
+        this.getItems();
     }
-
 
 
     render() {
@@ -133,73 +119,14 @@ export default class Salida_p extends Component {
                         <div className="row justify-content-around">
                             <div className="col-10 bg-light shadow rounded">
                                 <p className="fs-5">
-                                    Dentro de este apartado usted como jefe de almacén puede añadir, modificar,
-                                    eliminar productos a una solicitud de salida de productos, permitirá también
-                                    registrar dichas solicitudes como válidas para ser enviadas a las sucursales 
-                                    de distribución del producto.
+                                    Dentro de este apartado usted como jefe de almacén puede añadir,
+                                    modificar, eliminar productos a una solicitud de salida de productos,
+                                    permitirá también registrar dichas solicitudes como válidas para ser
+                                    enviadas al cliente.
                                 </p>
                             </div>
                         </div>
                         <div className="sep-peq"></div>
-                        <div className="row justify-content-around">
-                            <div className="col-4 text-center">
-
-                                <button
-                                    className="btn btn-secondary btn-outline-dark"
-                                    data-bs-toggle="modal" data-bs-target="#crear_solicitud">
-                                    Crear solicitud
-                                </button>
-
-                                <div className="modal fade" id="crear_solicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="staticBackdropLabel">Confirmación para eliminar:</h5>
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div className="modal-body">
-                                                ¿Desea crear una nueva solicitud? Si no ha registrado una solicitud en proceso se perderá para siempre.
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                <button type="button" className="btn btn-primary" id="crear_soli"
-                                                    data-bs-dismiss="modal"
-                                                    onClick={() => this.crearSolicitudVacia()}>Sí</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4 text-center">
-
-                                <button
-                                    className="btn btn-secondary btn-outline-dark"
-                                    data-bs-toggle="modal" data-bs-target="#registrar_solicitud">
-                                    Registrar solicitud
-                                </button>
-
-                                <div className="modal fade" id="registrar_solicitud" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div className="modal-dialog">
-                                        <div className="modal-content">
-                                            <div className="modal-header">
-                                                <h5 className="modal-title" id="staticBackdropLabel">Confirmación para eliminar:</h5>
-                                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div className="modal-body">
-                                                ¿Desea crear registrar esta solicitud? Esto hará que la solicitu pase a la sección de registros
-                                            </div>
-                                            <div className="modal-footer">
-                                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                                                <button type="button" className="btn btn-primary" id="registrar_soli"
-                                                    data-bs-dismiss="modal"
-                                                    onClick={() => this.registrarSolicitud(this.state.id_local)}>Sí</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div className="sep-peq"></div>
 
@@ -213,16 +140,70 @@ export default class Salida_p extends Component {
                                             <th scope="col">Categoría</th>
                                             <th scope="col">Proveedor</th>
                                             <th scope="col">Cantidad</th>
-                                            <th scope="col">Modificar</th>
-                                            <th scope="col">Eliminar</th>
+                                            <th scope="col">Reducir stock</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
-                                            this.state.solicitudes.map(solicitudes =>
-                                                <tr key={solicitudes._id}>
-                                                    <td>{solicitudes.id_local}</td>
-                                                    <td>{solicitudes.tipoS}</td>
+                                            this.state.Productos.map(Productos =>
+                                                <tr key={Productos._id}>
+                                                    <td>{Productos.nombreP}</td>
+                                                    <td>{Productos.codigoP}</td>
+                                                    <td>{Productos.categoriaP}</td>
+                                                    <td>{Productos.proveedorP}</td>
+                                                    <td>{Productos.cantidadP}</td>
+                                                    <td>
+                                                        <button
+                                                            className="btn btn-secondary btn-outline-dark"
+                                                            data-bs-toggle="modal" data-bs-target={"#au_stock" + Productos.codigoP}>
+                                                            Reducir stock
+                                                        </button>
+                                                        <div className="modal fade" id={"au_stock" + Productos.codigoP} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                            <div className="modal-dialog">
+                                                                <div className="modal-content">
+                                                                    <div className="modal-header">
+                                                                        <h5 className="modal-title" id="staticBackdropLabel">Aumentar stock:</h5>
+                                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div className="modal-body">
+                                                                        <form>
+
+                                                                            <div className="mb-4">
+                                                                                <p className="form-label text-start">Nombre</p>
+                                                                                <input
+                                                                                    type="text"
+                                                                                    className="form-control"
+                                                                                    onChange={this.onChangeNombreP}
+                                                                                    name="nombre"
+                                                                                    placeholder={Productos.nombreP}
+                                                                                    disabled
+                                                                                />
+                                                                            </div>
+
+                                                                            <div className="mb-4">
+                                                                                <p className="form-label text-start">Cantidad</p>
+                                                                                <input
+                                                                                    type="text"
+                                                                                    className="form-control"
+                                                                                    onChange={this.onChangeCantidadAu}
+                                                                                    name="cantidad_au"
+                                                                                    placeholder="Reduzca la cantidad de stock que se retirará"
+                                                                                />
+                                                                            </div>
+
+                                                                        </form>
+                                                                    </div>
+                                                                    <div className="modal-footer">
+                                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                                                                        <button type="button" className="btn btn-primary"
+                                                                            data-bs-dismiss="modal"
+                                                                            onClick={() => this.reducirItemStock(Productos._id, Productos.cantidadP)}>Sí</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
                                                 </tr>
                                             )
                                         }
@@ -230,12 +211,7 @@ export default class Salida_p extends Component {
                                 </table>
                             </div>
                         </div>
-
-
-                        
-
                     </div>
-
                 </div>
             </div>
         )

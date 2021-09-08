@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 export default class Sidebar extends Component {
-
+    
     sidebar_items = {
         campos: [{
             href: "/",
@@ -21,10 +21,6 @@ export default class Sidebar extends Component {
             href: "/trabajadores",
             name_item: "Trabajadores",
             icon: "bi bi-people lead p-3 mr-2"
-        }, {
-            href: "/registros",
-            name_item: "Registros",
-            icon: "bi bi-clipboard-data lead p-3 mr-2"
         }, {
             href: "/entrada-productos",
             name_item: "Entrada de productos",

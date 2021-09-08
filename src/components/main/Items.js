@@ -2,105 +2,95 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Sidebar from './sidebar'
 import Navbar from './navbar'
+//http://localhost:4000 para cada /api/
 
-export default class Salida_p extends Component {
-
+export default class Categorias extends Component {
 
     state = {
-        solicitudes: [],
-        nombreP: "",
-        codigoP: "",
-        categoriaP: "",
-        proveedorP: "",
-        precioP: "",
-        cantidadP: "",
-        descripcionP: ""
+        items: [],
+        nombre: "",
+        codigo: "",
+        categoria: "",
+        proveedor: "",
+        precio: "",
+        cantidad: 0
     }
-   
-    //Para cada producto
+
     onChangeNombreP = (e) => {
         this.setState({
-            nombreP: e.target.value
+            nombre: e.target.value
         })
     }
     onChangeCodigo = (e) => {
         this.setState({
-            codigoP: e.target.value
+            codigo: e.target.value
         })
     }
     onChangeCategoría = (e) => {
         this.setState({
-            categoriaP: e.target.value
+            categoria: e.target.value
         })
     }
     onChangeProveedor = (e) => {
         this.setState({
-            proveedorP: e.target.value
+            proveedor: e.target.value
         })
     }
     onChangePrecio = (e) => {
         this.setState({
-            precioP: e.target.value
+            precio: e.target.value
         })
     }
     onChangeCantidad = (e) => {
         this.setState({
-            cantidadP: e.target.value
+            cantidad: e.target.value
         })
     }
-    onChangeDescripcion = (e) => {
-        this.setState({
-            descripcionP: e.target.value
-        })
-    }
+
+
 
     async componentDidMount() {
-        this.getSolicitudes();
-
-        console.log(this.state.solicitudes)
+        this.getItems();
+        console.log(this.state.items)
     }
 
-    getSolicitudes = async () => {
-        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/');
-        this.setState({ solicitudes: res.data });
-    }
-
-    getSolicitud = async (id) => {
-        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id);
-        this.setState({ solicitudes: res.data });
-    }
-
-
-    crearSolicitudVacia = async () => {
-        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/', {
-            tipoS: "Salida",
-            estadoS: "Por aprobar"
-        })
-        this.setId(res.data);
-        //console.log(res.data);
-    }
-
-    registrarSolicitud = async (id) => {
-        await axios.put('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id, {
-            estadoS: "Registrado"
-        })
-        //console.log(res.data);
+    getItems = async () => {
+        const res = await axios.get('https://sistema-almacen-beta.herokuapp.com/api/items/');
+        this.setState({ items: res.data });
     }
 
     onSubmit = async (e) => {
-        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/', {
-            nombre: this.state.nombre,
-            codigo: this.state.codigo
+        const res = await axios.post('https://sistema-almacen-beta.herokuapp.com/api/items/', {
+            nombreP: this.state.nombre,
+            codigoP: this.state.codigo,
+            categoriaP: this.state.categoria,
+            proveedorP: this.state.proveedor,
+            precioP: this.state.precio,
+            cantidadP: this.state.cantidad
         })
         console.log(res)
-        this.getCategorias();
+        this.getItems();
 
     }
 
-    deleteCategoria = async (id) => {
-        await axios.delete('https://sistema-almacen-beta.herokuapp.com/api/solicitudes/' + id)
+    modifyItem = async (id) => {
+        console.log(id);
+        await axios.put('https://sistema-almacen-beta.herokuapp.com/api/items/' + id, {
+            nombreP: this.state.nombre,
+            codigoP: this.state.codigo,
+            categoriaP: this.state.categoria,
+            proveedorP: this.state.proveedor,
+            precioP: this.state.precio,
+            cantidadP: this.state.cantidad
+        })
+        this.getItems();
+
+    }
+
+    deleteItem = async (id) => {
+        await axios.delete('https://sistema-almacen-beta.herokuapp.com/api/items/' + id)
         console.log(id)
-        this.getCategorias();
+        this.getItems();
     }
 
 
@@ -116,16 +106,15 @@ export default class Salida_p extends Component {
                         <div className="row justify-content-around">
                             <div className="col-10 bg-light shadow rounded">
                                 <p className="fs-5">
-                                    Dentro de este apartado usted como jefe de almacén puede ver a
-                                    detalle los diversos productos registrados en el almacén.
+                                    Dentro de este apartado usted como jefe de almacén
+                                    puede ver a detalle los diversos productos registrados
+                                    en el almacén.
                                 </p>
                             </div>
                         </div>
                         <div className="sep-peq"></div>
 
-
                         <div className="sep-peq"></div>
-
                         <div className="row justify-content-around">
                             <div className="col-10">
                                 <table className="table table-striped">
@@ -135,17 +124,20 @@ export default class Salida_p extends Component {
                                             <th scope="col">Código</th>
                                             <th scope="col">Categoría</th>
                                             <th scope="col">Proveedor</th>
+                                            <th scope="col">Precio</th>
                                             <th scope="col">Cantidad</th>
-                                            <th scope="col">Modificar</th>
-                                            <th scope="col">Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
-                                            this.state.solicitudes.map(solicitudes =>
-                                                <tr key={solicitudes._id}>
-                                                    <td>{solicitudes.id_local}</td>
-                                                    <td>{solicitudes.tipoS}</td>
+                                            this.state.items.map(items =>
+                                                <tr key={items._id}>
+                                                    <td>{items.nombreP}</td>
+                                                    <td>{items.codigoP}</td>
+                                                    <td>{items.categoriaP}</td>
+                                                    <td>{items.proveedorP}</td>
+                                                    <td>{items.precioP}</td>
+                                                    <td>{items.cantidadP}</td>
                                                 </tr>
                                             )
                                         }
@@ -153,9 +145,6 @@ export default class Salida_p extends Component {
                                 </table>
                             </div>
                         </div>
-
-
-
 
                     </div>
 
