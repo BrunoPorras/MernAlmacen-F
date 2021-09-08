@@ -9,9 +9,7 @@ export default class Footer extends Component {
                 <div className="container w-50 pt-5">
                     <div className="row justify-content-md-center">
                         <div className="col text-center">
-                            <a href="/">
-                                <button className="btn btn-lg rounded-pill btn-warning w-10 p-3 shadow-sm font-weight-bold">Contáctanos</button>
-                            </a>
+                            <p className="fs-4">Para contacto enviar un correo a: alefran2020@gmail.com</p>
                         </div>
                     </div>
                     <div className="row justify-content-md-center py-5">
